@@ -6,19 +6,19 @@ const useAddBook = () => {
 
   return useMutation(postBook, {
     onMutate: async (newBook) => {
-      await queryClient.cancelQueries("books");
-      const previousBooksData = queryClient.getQueryData("books");
-      queryClient.setQueryData("books", (prevData) => [
+      await queryClient.cancelQueries(["books"]);
+      const previousBooksData = queryClient.getQueryData(["books"]);
+      queryClient.setQueryData(["books"], (prevData) => [
         ...prevData,
         { id: prevData?.data?.length + 1, ...newBook },
       ]);
       return { previousBooksData };
     },
     onError: (_err, context) => {
-      queryClient.setQueryData("books", context.previousBooksData);
+      queryClient.setQueryData(["books"], context.previousBooksData);
     },
     onSettled: () => {
-      queryClient.invalidateQueries("books");
+      queryClient.invalidateQueries(["books"]);
     },
   });
 };

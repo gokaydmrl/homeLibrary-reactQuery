@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import useAddBook from "../api/useAddBook";
 import List from "./List";
+import AddBookModal from "./AddBookModal";
+import { GiWhiteBook } from "react-icons/gi";
 
 const AddBook = () => {
   const [book, setBook] = useState({
@@ -14,6 +16,8 @@ const AddBook = () => {
     publisher: "",
     dbColor: "white",
   });
+
+  const [modalShow, setModalShow] = useState(false);
 
   const { mutate: postBookItem } = useAddBook();
 
@@ -45,65 +49,36 @@ const AddBook = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          onChange={handleChange}
-          placeholder="title"
-          value={book.title}
-          name="title"
-        />
-        <br />
-        <label>read?</label>
-        <input
-          onChange={() => {
-            // performans kaybı ve eski booku da verebilir: setBook({ ...book, read: true });
-            setBook((b) => ({ ...b, read: true }));
+    <>
+      <div
+        style={{
+          padding: "29px",
+          justifyContent: "center",
+          display: "flex",
+          textAlign: "center",
+        }}
+      >
+        <button
+          size="lg"
+          style={{ backgroundColor: "white", border: "none" }}
+          onClick={() => {
+            setModalShow(true);
           }}
-          type="checkbox"
-          placeholder="read"
-          value={book.read}
-          name="read"
-        />
-        <br />
-        <input
-          onChange={handleChange}
-          placeholder="content"
-          value={book.content}
-          name="content"
-        />
-        <br />
-        <input
-          onChange={handleChange}
-          placeholder="author"
-          value={book.author}
-          name="author"
-        />
-        <br />
-        <input
-          onChange={handleChange}
-          placeholder="translator"
-          value={book.translator}
-          name="translator"
-        />
-        <br />
-        <input
-          onChange={handleChange}
-          placeholder="publisher"
-          value={book.publisher}
-          name="publisher"
-        />
-        <br />
-        <input
-          type="color"
-          name="dbColor"
-          value={book.dbColor}
-          onChange={handleChange}
-        />
-        <button>add book</button>
-      </form>
+        >
+          <GiWhiteBook size={60} />
+        </button>
+      </div>
+
+      <AddBookModal
+        book={book}
+        modalShow={modalShow}
+        setModalShow={setModalShow}
+        setBook={setBook}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+      />
       <List />
-    </div>
+    </>
   );
 };
 
