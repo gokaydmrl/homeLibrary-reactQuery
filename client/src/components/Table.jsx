@@ -1,21 +1,18 @@
-import { json } from "body-parser";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import Content from "../components/Content";
-import { FaPencilAlt } from "react-icons/fa";
 import SearchInput from "./SearchInput";
 import Container from "react-bootstrap/Container";
 import { BsBookFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import PatchBookModal from "./PatchBookModal";
 
 const DataTable = ({ data }) => {
   const [obje, setObje] = useState({});
-  const [search, setSearch] = useState(false);
+  const [show, setShow] = useState(false);
 
-  const handleSearch = () => setSearch(!search);
-  {
-    /* <button onClick={handleSearch}>ara</button> */
-  }
+  console.log("tabledan data:", data);
 
   return (
     <div
@@ -24,7 +21,6 @@ const DataTable = ({ data }) => {
         alignItems: "center",
       }}
     >
-      {search && <SearchInput />}
       <Container fluid>
         <Table>
           <thead>
@@ -47,20 +43,29 @@ const DataTable = ({ data }) => {
                   <td>{item.translator} </td>
                   <td>{item.publisher} </td>
                   <td>{item.read === true ? "evet" : "hayır"} </td>
-                  <button
+                  <td
                     style={{ backgroundColor: "white" }}
                     onClick={() => {
                       setObje(item);
                     }}
                   >
                     <BsBookFill color={item.dbColor} size={40} />
-                  </button>
+                  </td>
+
+                  <td
+                    onClick={() => {
+                      setShow(true);
+                    }}
+                  >
+                    <Link to={`/${item.id}`}>update</Link>
+                  </td>
                 </tr>
               </tbody>
             );
           })}
         </Table>
         <Content obje={obje} />;
+        {show && <PatchBookModal show={show} setShow={setShow} data={data} />}
       </Container>
     </div>
   );

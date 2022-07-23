@@ -29,3 +29,16 @@ exports.createBookHandler = async (req, res) => {
   });
   res.status(201).json(book);
 };
+
+///
+
+exports.patchBookHandler = async (req, res) => {
+  const { id } = req.params;
+  const { content, dbColor } = req.body;
+
+  const patchedBook = prisma.Books.update({
+    where: { id },
+    data: { content, dbColor },
+  });
+  res.json(patchedBook);
+};

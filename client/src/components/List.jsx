@@ -3,18 +3,14 @@ import React from "react";
 // import getBooks from "../api/getBooksAction";
 import DataTable from "./Table";
 import Spinner from "react-bootstrap/Spinner";
-import fetchData from "../api/fetchData";
 
-const List = () => {
+const List = ({isLoading, isSuccess, data}) => {
   // const queryClient = useQueryClient();
   // const query = useQuery(["books"], getBooks);
   // console.log("query data", query);
-
   // const { isLoading, isSuccess, data } = useQuery(["books"], getBooks);
 
-const { isLoading, isSuccess, data } = fetchData()
 
-  console.log("fetchData", data);
 
   return (
     <div className="App">

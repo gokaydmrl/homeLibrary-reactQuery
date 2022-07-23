@@ -1,11 +1,20 @@
-import React from "react";
 import { useState } from "react";
 import useAddBook from "../api/useAddBook";
 import List from "./List";
 import AddBookModal from "./AddBookModal";
 import { GiWhiteBook } from "react-icons/gi";
+import { GiArchiveResearch } from "react-icons/gi";
+
+import { useQuery } from "react-query";
+import getBooks from "../api/getBooksAction";
 
 const AddBook = () => {
+  // const query = useQuery(["books"], getBooks);
+  // console.log("query data", query.data);
+  const { isLoading, isSuccess, data } = useQuery(["books"], getBooks);
+
+ console.log("data from addbook", data);
+
   const [book, setBook] = useState({
     id: "",
     author: "",
@@ -43,6 +52,7 @@ const AddBook = () => {
         publisher: "",
         dbColor: "white",
       });
+      setModalShow(false);
     } catch (error) {
       console.log("this error", error);
     }
@@ -67,6 +77,15 @@ const AddBook = () => {
         >
           <GiWhiteBook size={60} />
         </button>
+        <button
+          size="lg"
+          style={{ backgroundColor: "white", border: "none" }}
+          onClick={() => {
+            setModalShow(true);
+          }}
+        >
+          <GiArchiveResearch size={60} />
+        </button>
       </div>
 
       <AddBookModal
@@ -77,7 +96,7 @@ const AddBook = () => {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
       />
-      <List />
+      <List isLoading={isLoading} isSuccess={isSuccess} data={data} />
     </>
   );
 };

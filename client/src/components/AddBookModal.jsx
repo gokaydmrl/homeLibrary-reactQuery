@@ -54,6 +54,7 @@ const AddBookModal = ({
               name="translator"
             />
           </Form.Group>
+
           <Form.Group className="mb-3">
             <Form.Label>Publisher</Form.Label>
             <Form.Control
@@ -62,18 +63,20 @@ const AddBookModal = ({
               value={book.publisher}
               name="publisher"
             />
-            <Form.Group className="mb-3">
-              <Form.Label>Content</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={6}
-                onChange={handleChange}
-                placeholder="content"
-                value={book.content}
-                name="content"
-              />
-            </Form.Group>
           </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Content</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={6}
+              onChange={handleChange}
+              placeholder="content"
+              value={book.content}
+              name="content"
+            />
+          </Form.Group>
+
           <Form.Check
             onChange={() => {
               // performans kaybı ve eski booku da verebilir: setBook({ ...book, read: true });
@@ -85,6 +88,7 @@ const AddBookModal = ({
             name="read"
             label="Have you read the book?"
           />
+
           <Form.Group className="mb-3">
             <Form.Label>Pick a Background Color</Form.Label>
             <Form.Control
@@ -94,6 +98,7 @@ const AddBookModal = ({
               onChange={handleChange}
             />
           </Form.Group>
+
           <button>Add Your Book</button>
         </Form>
       </Modal.Body>
