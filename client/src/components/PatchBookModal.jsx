@@ -5,14 +5,15 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import getBooks from "../api/getBooksAction";
 
-const PatchBookModal = ({show, setShow, data }) => {
+const PatchBookModal = ({ show, setShow, data }) => {
   //  const { data } = useQuery(["books"], getBooks);
 
   const { id } = useParams();
 
   console.log("patchilecek data", data);
+
   const bookItem = data.find((i) => {
-    return i.id === id;
+    return id === i.id;
   });
 
   const handleSubmit = (e) => {

@@ -66,7 +66,7 @@ const DataTable = ({ data }) => {
         </Table>
         <Content obje={obje} />;
       </Container>
-      {show && <PatchBookModal show={show} setShow={setShow} data={data} />}
+       <PatchBookModal show={show} setShow={setShow} data={data} />
     </div>
   );
 };
