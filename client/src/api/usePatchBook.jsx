@@ -1,15 +1,17 @@
 import { useMutation, useQueryClient } from "react-query";
 import patchBookAction from "./patchBookAction";
 
-const usePatchBook = (patchedBook) => {
+const usePatchBook = () => {
   const queryClient = useQueryClient();
 
   return useMutation(patchBookAction, {
     onMutate: (bookToPatch) => {
-      queryClient.setQueryData(["patchedBook", patchedBook.id], bookToPatch);
+      console.log("book to patch", bookToPatch);
+      queryClient.setQueryData(["bookToPatch", bookToPatch.id]);
+      return { bookToPatch };
     },
     onSuccess: () => {
-      queryClient.InvalidateQueries(["patchedBook", patchedBook.id]);
+      queryClient.invalidateQueries(["books"]);
     },
   });
 };
