@@ -16,6 +16,8 @@ const PatchBookModal = ({ show, setShow, data }) => {
     return id === i.id;
   });
 
+  console.log("bookitem", bookItem);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
