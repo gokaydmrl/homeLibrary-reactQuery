@@ -4,23 +4,31 @@ import Button from "react-bootstrap/esm/Button";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import getBooks from "../api/getBooksAction";
+import usePatchBook from "../api/usePatchBook";
+import { useState } from "react";
 
-const PatchBookModal = ({ show, setShow, data }) => {
-  //  const { data } = useQuery(["books"], getBooks);
-
-  const { id } = useParams();
-
-  console.log("patchilecek data", data);
-
-  const bookItem = data.find((i) => {
-    return id === i.id;
+const PatchBookModal = ({ show, setShow, data, bookId }) => {
+  const patchedBookItem = data.find((i) => {
+    return bookId === i.id;
   });
 
-  console.log("bookitem", bookItem);
+  const [bookToPatch, setBookToPatch] = useState({
+    id: patchedBookItem.id,
+    content: patchedBookItem.content,
+    dbColor: patchedBookItem.dbColor,
+  });
+
+  const { mutate: patchBookItem } = usePatchBook();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setBookToPatch({ ...bookToPatch, [name]: value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
+      patchBookItem(bookToPatch);
       alert("letssee");
     } catch (error) {
       console.log(error);
@@ -29,7 +37,7 @@ const PatchBookModal = ({ show, setShow, data }) => {
 
   return (
     <Modal
-      show={false}
+      show={show}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -46,9 +54,9 @@ const PatchBookModal = ({ show, setShow, data }) => {
             <Form.Control
               as="textarea"
               rows={6}
-              //   onChange={handleChange}
+              onChange={handleChange}
               placeholder="content"
-              //   value={book.content}
+              value={bookToPatch.content}
               name="content"
             />
           </Form.Group>
@@ -58,8 +66,8 @@ const PatchBookModal = ({ show, setShow, data }) => {
             <Form.Control
               type="color"
               name="dbColor"
-              //   value={book.dbColor}
-              //   onChange={handleChange}
+              value={bookToPatch.dbColor}
+              onChange={handleChange}
             />
           </Form.Group>
           <button>Update Your Book</button>
@@ -67,9 +75,9 @@ const PatchBookModal = ({ show, setShow, data }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button
-        //   onClick={() => {
-        //     setModalShow(false);
-        //   }}
+          onClick={() => {
+            setShow(false);
+          }}
         >
           Close
         </Button>

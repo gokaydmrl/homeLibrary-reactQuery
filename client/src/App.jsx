@@ -11,17 +11,11 @@ import PatchBookModal from "./components/PatchBookModal";
 function App() {
   const queryClient = new QueryClient();
 
-  const id = useParams();
 
   return (
     <div>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<AddBook />} />
-            <Route path="/:id" element={<PatchBookModal />} />
-          </Routes>
-        </BrowserRouter>
+        <AddBook />
       </QueryClientProvider>
     </div>
   );

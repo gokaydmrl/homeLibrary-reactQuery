@@ -11,6 +11,7 @@ import PatchBookModal from "./PatchBookModal";
 const DataTable = ({ data }) => {
   const [obje, setObje] = useState({});
   const [show, setShow] = useState(false);
+  const [bookId, setBookId] = useState(null);
 
   console.log("tabledan data:", data);
 
@@ -54,10 +55,11 @@ const DataTable = ({ data }) => {
 
                   <td
                     onClick={() => {
+                      setBookId(item.id);
                       setShow(true);
                     }}
                   >
-                    <Link to={`/${item.id}`}>update</Link>
+                    update
                   </td>
                 </tr>
               </tbody>
@@ -66,7 +68,14 @@ const DataTable = ({ data }) => {
         </Table>
         <Content obje={obje} />;
       </Container>
-       <PatchBookModal show={show} setShow={setShow} data={data} />
+      {show && (
+        <PatchBookModal
+          bookId={bookId}
+          show={show}
+          setShow={setShow}
+          data={data}
+        />
+      )}{" "}
     </div>
   );
 };
