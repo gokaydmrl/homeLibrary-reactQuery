@@ -5,13 +5,26 @@ const usePatchBook = () => {
   const queryClient = useQueryClient();
 
   return useMutation(patchBookAction, {
-    onMutate: (bookToPatch) => {
-      console.log("book to patch", bookToPatch);
-      queryClient.setQueryData(["bookToPatch", bookToPatch.id]);
-      return { bookToPatch };
+    onMutate: async (bookToPatch) => {
+      await queryClient.cancelQueries(["books", bookToPatch.id]);
+      const previousBook = queryClient.getQueryData(["books", bookToPatch.id]);
+      console.log("previous book", previousBook);
+      console.log("book to patch", bookToPatch, "id'si", bookToPatch.id);
+      queryClient.setQueryData(["books", bookToPatch.id], bookToPatch);
+      return { previousBook, bookToPatch };
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["books"]);
+    onError: (err, bookToPatch, context) => {
+      queryClient.setQueryData(
+        ["books", context.bookToPatch.id],
+        context.previousBook
+      )
+
+      console.log("onerror aşamasında", bookToPatch);
+      console.log("err", err);
+    },
+    onSettled: (bookToPatch) => {
+      queryClient.invalidateQueries(["books", bookToPatch.id]);
+      console.log("on settleddaki obje", bookToPatch);
     },
   });
 };
