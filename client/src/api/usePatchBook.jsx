@@ -31,7 +31,6 @@
 
 // export default usePatchBook;
 
-
 import { useMutation, useQueryClient } from "react-query";
 import patchBookAction from "./patchBookAction";
 
@@ -40,10 +39,10 @@ const usePatchBook = () => {
 
   return useMutation(patchBookAction, {
     // Notice the second argument is the variables object that the `mutate` function receives
-    onSuccess: (data, bookToPatch) => {
-      console.log("bktopatch", bookToPatch);
-      queryClient.setQueryData(["books", { id: bookToPatch.id }], data);
-      console.log("data",data);
+    onSuccess: (data, bookToBePatched) => {
+      console.log("bktopatch", bookToBePatched);
+      queryClient.setQueryData(["books", { id: bookToBePatched.id }], data);
+      console.log("data", data);
     },
   });
 };
