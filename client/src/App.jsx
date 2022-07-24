@@ -8,12 +8,12 @@ import PatchBookModal from "./components/PatchBookModal";
 
 // npm WARN deprecated react-query@4.0.0: Please use @tanstack/react-query for v4+
 
-function App() {
-  const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
+function App() {
   return (
     <div>
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient} contextSharing={true}>
         <AddBook />
       </QueryClientProvider>
     </div>

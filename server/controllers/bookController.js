@@ -36,9 +36,10 @@ exports.patchBookHandler = async (req, res) => {
   const { id } = req.params;
   const { content, dbColor } = req.body;
 
-  const patchedBook = prisma.Books.update({
-    where: { id },
+  const patchedBook = await prisma.Books.update({
+    where: { id: Number(id) },
     data: { content, dbColor },
   });
-  res.json(patchedBook);
+
+  res.status(200).json(patchedBook);
 };

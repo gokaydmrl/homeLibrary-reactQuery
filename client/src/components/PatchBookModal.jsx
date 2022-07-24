@@ -1,9 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import getBooks from "../api/getBooksAction";
 import usePatchBook from "../api/usePatchBook";
 import { useState } from "react";
 
@@ -28,8 +25,7 @@ const PatchBookModal = ({ show, setShow, data, bookId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      patchBookItem(bookToPatch);
-      alert("letssee");
+      patchBookItem({ id: bookToPatch.id, bookItem: bookToPatch });
     } catch (error) {
       console.log(error);
     }

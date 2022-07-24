@@ -1,12 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import postBook from "../api/postBookAction";
+import { queryClient } from "../App";
 
 const useAddBook = () => {
-  const queryClient = useQueryClient();
-
   return useMutation(postBook, {
     onMutate: async (newBook) => {
-      await queryClient.cancelQueries(["books"]);
       const previousBooksData = queryClient.getQueryData(["books"]);
       queryClient.setQueryData(["books"], (prevData) => [
         ...prevData,

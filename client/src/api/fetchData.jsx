@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import getBooks from "../api/getBooksAction";
 
-const fetchData = async () => {
-  const { isLoading, isSuccess, data } = await useQuery(["books"], getBooks);
-   console.log("query data", data);
+const fetchData = () => {
+  const { isLoading, isSuccess, data } = useQuery(["books"], getBooks);
+  console.log("query data", data);
 
   return { isLoading, isSuccess, data };
 };
