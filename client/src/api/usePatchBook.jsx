@@ -31,7 +31,7 @@
 
 // export default usePatchBook;
 
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import patchBookAction from "./patchBookAction";
 
 const usePatchBook = () => {

@@ -5,7 +5,7 @@ import AddBookModal from "./AddBookModal";
 import { GiWhiteBook } from "react-icons/gi";
 import { GiArchiveResearch } from "react-icons/gi";
 
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import getBooks from "../api/getBooksAction";
 
 const AddBook = () => {

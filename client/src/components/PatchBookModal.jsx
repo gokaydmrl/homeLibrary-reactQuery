@@ -2,7 +2,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
 import { useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import getBooks from "../api/getBooksAction";
 import usePatchBook from "../api/usePatchBook";
 import { useState } from "react";
