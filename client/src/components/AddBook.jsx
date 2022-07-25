@@ -4,6 +4,7 @@ import List from "./List";
 import AddBookModal from "./AddBookModal";
 import { GiWhiteBook } from "react-icons/gi";
 import { GiArchiveResearch } from "react-icons/gi";
+import SearchInput from "../components/SearchInput";
 
 import { useQuery } from "@tanstack/react-query";
 import getBooks from "../api/getBooksAction";
@@ -11,9 +12,16 @@ import getBooks from "../api/getBooksAction";
 const AddBook = () => {
   // const query = useQuery(["books"], getBooks);
   // console.log("query data", query.data);
-  const { isLoading, isSuccess, data } = useQuery(["books"], getBooks);
+  const { isLoading, isSuccess, data } = useQuery(["books"], getBooks, {
+    select: (data) => data.sort((x, y) => y.id - x.id),
+  });
 
- console.log("data from addbook", data);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchInputClicked, setSearchInputClicked] = useState(false);
+
+  
+
+  console.log("data from addbook", data);
 
   const [book, setBook] = useState({
     id: "",
@@ -81,7 +89,8 @@ const AddBook = () => {
           size="lg"
           style={{ backgroundColor: "white", border: "none" }}
           onClick={() => {
-            setModalShow(true);
+            setSearchInputClicked(!searchInputClicked);
+            setSearchQuery("")
           }}
         >
           <GiArchiveResearch size={60} />
@@ -96,6 +105,14 @@ const AddBook = () => {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
       />
+      {searchInputClicked && (
+        <SearchInput
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setSearchInputClicked={setSearchInputClicked}
+          data={data}
+        />
+      )}
       <List isLoading={isLoading} isSuccess={isSuccess} data={data} />
     </>
   );

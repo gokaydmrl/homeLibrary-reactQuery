@@ -2,11 +2,10 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import Content from "../components/Content";
-import SearchInput from "./SearchInput";
 import Container from "react-bootstrap/Container";
-import { BsBookFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { MdOutlineMenuBook } from "react-icons/md";
 import PatchBookModal from "./PatchBookModal";
+import {HiPencilAlt} from "react-icons/hi"
 
 const DataTable = ({ data }) => {
   const [obje, setObje] = useState({});
@@ -32,6 +31,7 @@ const DataTable = ({ data }) => {
               <th style={{ width: "auto" }}>Publisher</th>
               <th style={{ width: "auto" }}>Read?</th>
               <th style={{ width: "auto" }}>Content</th>
+              <th style={{ width: "auto" }}>Update</th>
             </tr>
           </thead>
 
@@ -50,23 +50,24 @@ const DataTable = ({ data }) => {
                       setObje(item);
                     }}
                   >
-                    <BsBookFill color={item.dbColor} size={40} />
+                    <MdOutlineMenuBook size={40} />
                   </td>
 
                   <td
+                    style={{ backgroundColor: "white" }}
                     onClick={() => {
                       setBookId(item.id);
                       setShow(true);
                     }}
                   >
-                    update
+                    <HiPencilAlt size={40} />
                   </td>
                 </tr>
               </tbody>
             );
           })}
         </Table>
-        <Content obje={obje} />;
+        <Content obje={obje} />
       </Container>
       {show && (
         <PatchBookModal
@@ -75,7 +76,7 @@ const DataTable = ({ data }) => {
           setShow={setShow}
           data={data}
         />
-      )}{" "}
+      )}
     </div>
   );
 };

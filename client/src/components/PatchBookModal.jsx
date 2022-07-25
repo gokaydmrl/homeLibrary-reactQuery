@@ -65,6 +65,17 @@ const PatchBookModal = ({ show, setShow, data, bookId }) => {
               value={bookToPatch.dbColor}
               onChange={handleChange}
             />
+            <Form.Check
+              onChange={() => {
+                // performans kaybı ve eski booku da verebilir: setBook({ ...book, read: true });
+                setBook((b) => ({ ...b, read: true }));
+              }}
+              type="checkbox"
+              placeholder="read"
+              value={bookToPatch.read}
+              name="read"
+              label="Have you read the book?"
+            />
           </Form.Group>
           <button>Update Your Book</button>
         </Form>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const postBook = (book) => {
-  const postResponse = axios.post("http://localhost:3001/books", book);
+const postBook = async (book) => {
+  const postResponse = await axios.post("http://localhost:3001/books", book);
   return postResponse.data;
 };
 

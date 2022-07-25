@@ -5,7 +5,7 @@ import { queryClient } from "../App";
 const useAddBook = () => {
   return useMutation(postBook, {
     onMutate: async (newBook) => {
-      const previousBooksData = queryClient.getQueryData(["books"]);
+      const previousBooksData = await queryClient.getQueryData(["books"]);
       queryClient.setQueryData(["books"], (prevData) => [
         ...prevData,
         { id: prevData?.data?.length + 1, ...newBook },
