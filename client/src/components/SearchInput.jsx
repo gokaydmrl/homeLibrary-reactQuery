@@ -8,15 +8,16 @@ const SearchInput = ({
   data,
   searchKey,
 }) => {
-  const text = "title";
-
-  const [filteredItem, setFilteredItem] = useState({
-    text: text,
-  });
-
-  const searchedBooks = data.filter((filteredItem) =>
-    filteredItem.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  var searchedBooks = [];
+  if (searchKey === "title") {
+    searchedBooks = data.filter((filteredItem) =>
+      filteredItem.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  } else if (searchKey === "author") {
+    searchedBooks = data.filter((filteredItem) =>
+      filteredItem.author.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 
   return (
     <div
@@ -29,7 +30,7 @@ const SearchInput = ({
     >
       <input
         value={searchQuery}
-        placeholder={searchKey === "title" ? "title araması" : "beklemede"}
+        placeholder={`${searchKey} araması yapılıyor`}
         onChange={(e) => {
           setSearchQuery(e.target.value);
         }}

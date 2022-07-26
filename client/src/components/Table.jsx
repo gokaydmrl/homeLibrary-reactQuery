@@ -21,9 +21,10 @@ const DataTable = ({
   const [contentModalShow, setContentModalShow] = useState(false);
   const [searchKey, setSearchKey] = useState("");
 
-  const openSearchInput = () => {
-  
-}
+  const openSearchInput = (key) => {
+    setSearchInputClicked(true);
+    setSearchKey(key);
+  };
 
   return (
     <div
@@ -47,17 +48,25 @@ const DataTable = ({
           <thead>
             <tr>
               <th style={{ width: "auto" }}>
-                Title{" "}
+                Title
                 <span
                   onClick={() => {
-                    setSearchInputClicked(true);
-                    setSearchKey("title");
+                    openSearchInput("title");
                   }}
                 >
                   ara
                 </span>
               </th>
-              <th style={{ width: "auto" }}>Author</th>
+              <th style={{ width: "auto" }}>
+                Author{" "}
+                <span
+                  onClick={() => {
+                    openSearchInput("author");
+                  }}
+                >
+                  ara
+                </span>
+              </th>
               <th style={{ width: "auto" }}>Translator</th>
               <th style={{ width: "auto" }}>Publisher</th>
               <th style={{ width: "auto" }}>Read?</th>
