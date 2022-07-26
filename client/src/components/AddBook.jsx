@@ -8,6 +8,7 @@ import SearchInput from "../components/SearchInput";
 
 import { useQuery } from "@tanstack/react-query";
 import getBooks from "../api/getBooksAction";
+import { useMemo } from "react";
 
 const AddBook = () => {
   // const query = useQuery(["books"], getBooks);
@@ -15,7 +16,7 @@ const AddBook = () => {
   const { isLoading, isSuccess, data } = useQuery(["books"], getBooks, {
     select: (data) => data.sort((x, y) => y.id - x.id),
   });
-
+  const filteredData =  useMemo(() => data, [data])
   const [searchQuery, setSearchQuery] = useState("");
   const [searchInputClicked, setSearchInputClicked] = useState(false);
 
@@ -109,7 +110,7 @@ const AddBook = () => {
       <List
         isLoading={isLoading}
         isSuccess={isSuccess}
-        data={data}
+        data={filteredData}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         searchInputClicked={searchInputClicked}

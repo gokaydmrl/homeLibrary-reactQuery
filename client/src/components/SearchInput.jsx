@@ -8,14 +8,13 @@ const SearchInput = ({
   data,
   searchKey,
 }) => {
-  var searchedBooks = [];
   if (searchKey === "title") {
-    searchedBooks = data.filter((filteredItem) =>
+    data = data.filter((filteredItem) =>
       filteredItem.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   } else if (searchKey === "author") {
-    searchedBooks = data.filter((filteredItem) =>
-      filteredItem.author.toLowerCase().includes(searchQuery.toLowerCase())
+    data = data.filter((filteredItem) =>
+      filteredItem[searchKey].toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
 
@@ -52,7 +51,7 @@ const SearchInput = ({
         }}
       >
         {searchQuery !== ""
-          ? searchedBooks.map((item) => {
+          ? data.map((item) => {
               return (
                 <ul key={item.id}>
                   <a style={{ color: "black" }} href={`#${item.title}`}>

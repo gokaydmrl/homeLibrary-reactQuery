@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import ContentModal from "./ContentModal";
@@ -26,6 +26,19 @@ const DataTable = ({
     setSearchKey(key);
   };
 
+  const syncData = useMemo(() => {
+    if (searchQuery === "" || searchKey === "") {
+      return data;
+    }
+    return data?.filter((filteredItem) => {
+      return filteredItem[searchKey]
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+    });
+  }, [data, searchKey, searchQuery]);
+
+  console.log("bu hangi şov", syncData);
+
   return (
     <div
       style={{
@@ -43,13 +56,20 @@ const DataTable = ({
             searchKey={searchKey}
           />
         )}
-
+        {/* <input
+          value={searchQuery}
+          placeholder={`${searchKey} araması yapılıyor`}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+          }}
+        /> */}
         <Table>
           <thead>
             <tr>
               <th style={{ width: "auto" }}>
                 Title
                 <span
+                  style={{ marginLeft: "20px", cursor:"pointer" }}
                   onClick={() => {
                     openSearchInput("title");
                   }}
@@ -75,7 +95,7 @@ const DataTable = ({
             </tr>
           </thead>
 
-          {data.map((item) => {
+          {syncData.map((item) => {
             return (
               <tbody key={item.id} id={item.title}>
                 <tr style={{ backgroundColor: item.dbColor }}>
@@ -84,14 +104,15 @@ const DataTable = ({
                   <td>{item.translator} </td>
                   <td>{item.publisher} </td>
                   <td>{item.read === true ? "evet" : "hayır"} </td>
-                  <td
-                    style={{ backgroundColor: "white" }}
-                    onClick={() => {
-                      setObje(item);
-                      setContentModalShow(true);
-                    }}
-                  >
-                    <MdOutlineMenuBook size={40} />
+                  <td style={{ backgroundColor: "white" }}>
+                    <MdOutlineMenuBook
+                      onClick={() => {
+                        setObje(item);
+                        setContentModalShow(true);
+                      }}
+                      cursor={"pointer"}
+                      size={40}
+                    />
                   </td>
 
                   <td
