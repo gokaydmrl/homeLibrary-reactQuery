@@ -1,18 +1,29 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Table from "react-bootstrap/Table";
-import Content from "../components/Content";
+import ContentModal from "./ContentModal";
 import Container from "react-bootstrap/Container";
 import { MdOutlineMenuBook } from "react-icons/md";
 import PatchBookModal from "./PatchBookModal";
-import {HiPencilAlt} from "react-icons/hi"
+import { HiPencilAlt } from "react-icons/hi";
+import SearchInput from "./SearchInput";
 
-const DataTable = ({ data }) => {
+const DataTable = ({
+  data,
+  searchQuery,
+  setSearchQuery,
+  searchInputClicked,
+  setSearchInputClicked,
+}) => {
   const [obje, setObje] = useState({});
   const [show, setShow] = useState(false);
   const [bookId, setBookId] = useState(null);
+  const [contentModalShow, setContentModalShow] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
 
-  console.log("tabledan data:", data);
+  const openSearchInput = () => {
+  
+}
 
   return (
     <div
@@ -22,10 +33,30 @@ const DataTable = ({ data }) => {
       }}
     >
       <Container fluid>
+        {searchInputClicked && (
+          <SearchInput
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            setSearchInputClicked={setSearchInputClicked}
+            data={data}
+            searchKey={searchKey}
+          />
+        )}
+
         <Table>
           <thead>
             <tr>
-              <th style={{ width: "auto" }}>Title</th>
+              <th style={{ width: "auto" }}>
+                Title{" "}
+                <span
+                  onClick={() => {
+                    setSearchInputClicked(true);
+                    setSearchKey("title");
+                  }}
+                >
+                  ara
+                </span>
+              </th>
               <th style={{ width: "auto" }}>Author</th>
               <th style={{ width: "auto" }}>Translator</th>
               <th style={{ width: "auto" }}>Publisher</th>
@@ -37,7 +68,7 @@ const DataTable = ({ data }) => {
 
           {data.map((item) => {
             return (
-              <tbody key={item.id}>
+              <tbody key={item.id} id={item.title}>
                 <tr style={{ backgroundColor: item.dbColor }}>
                   <td>{item.title} </td>
                   <td>{item.author} </td>
@@ -48,6 +79,7 @@ const DataTable = ({ data }) => {
                     style={{ backgroundColor: "white" }}
                     onClick={() => {
                       setObje(item);
+                      setContentModalShow(true);
                     }}
                   >
                     <MdOutlineMenuBook size={40} />
@@ -67,7 +99,13 @@ const DataTable = ({ data }) => {
             );
           })}
         </Table>
-        <Content obje={obje} />
+        {contentModalShow && (
+          <ContentModal
+            contentModalShow={contentModalShow}
+            setContentModalShow={setContentModalShow}
+            obje={obje}
+          />
+        )}
       </Container>
       {show && (
         <PatchBookModal

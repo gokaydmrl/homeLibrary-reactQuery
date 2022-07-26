@@ -6,15 +6,17 @@ const SearchInput = ({
   setSearchQuery,
   setSearchInputClicked,
   data,
+  searchKey,
 }) => {
+  const text = "title";
 
-  const [filteredItem, setFilteredItem] = useState({});
-
+  const [filteredItem, setFilteredItem] = useState({
+    text: text,
+  });
 
   const searchedBooks = data.filter((filteredItem) =>
     filteredItem.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
 
   return (
     <div
@@ -27,12 +29,11 @@ const SearchInput = ({
     >
       <input
         value={searchQuery}
-        placeholder={`search for title`}
+        placeholder={searchKey === "title" ? "title araması" : "beklemede"}
         onChange={(e) => {
           setSearchQuery(e.target.value);
         }}
       />
-
       <button
         onClick={() => {
           setSearchQuery("");
@@ -41,12 +42,21 @@ const SearchInput = ({
       >
         close
       </button>
-      <div>
+      <div
+        style={{
+          textAlign: "left",
+          justifyContent: "center",
+          alignItems: "center",
+          display: "grid",
+        }}
+      >
         {searchQuery !== ""
           ? searchedBooks.map((item) => {
               return (
                 <ul key={item.id}>
-                  <li>{item.title}</li>
+                  <a style={{ color: "black" }} href={`#${item.title}`}>
+                    {item.title}
+                  </a>
                 </ul>
               );
             })

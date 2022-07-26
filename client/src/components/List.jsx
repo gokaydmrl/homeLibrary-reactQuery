@@ -4,7 +4,15 @@ import React from "react";
 import DataTable from "./Table";
 import Spinner from "react-bootstrap/Spinner";
 
-const List = ({ isLoading, isSuccess, data }) => {
+const List = ({
+  isLoading,
+  isSuccess,
+  data,
+  searchQuery,
+  setSearchQuery,
+  searchInputClicked,
+  setSearchInputClicked,
+}) => {
   // const queryClient = useQueryClient();
   // const query = useQuery(["books"], getBooks);
   // console.log("query data", query);
@@ -21,7 +29,15 @@ const List = ({ isLoading, isSuccess, data }) => {
           role="status"
         />
       )}
-      {isSuccess === true && <DataTable data={data} />}
+      {isSuccess === true && (
+        <DataTable
+          data={data}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          searchInputClicked={searchInputClicked}
+          setSearchInputClicked={setSearchInputClicked}
+        />
+      )}
     </div>
   );
 };

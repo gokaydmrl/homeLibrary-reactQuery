@@ -90,7 +90,7 @@ const AddBook = () => {
           style={{ backgroundColor: "white", border: "none" }}
           onClick={() => {
             setSearchInputClicked(!searchInputClicked);
-            setSearchQuery("")
+            setSearchQuery("");
           }}
         >
           <GiArchiveResearch size={60} />
@@ -105,15 +105,16 @@ const AddBook = () => {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
       />
-      {searchInputClicked && (
-        <SearchInput
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          setSearchInputClicked={setSearchInputClicked}
-          data={data}
-        />
-      )}
-      <List isLoading={isLoading} isSuccess={isSuccess} data={data} />
+
+      <List
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        data={data}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        searchInputClicked={searchInputClicked}
+        setSearchInputClicked={setSearchInputClicked}
+      />
     </>
   );
 };
