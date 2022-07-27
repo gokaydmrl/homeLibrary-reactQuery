@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import Button from "react-bootstrap/esm/Button";
+import {RiCloseCircleFill} from "react-icons/ri"
 
 const SearchInput = ({
   searchQuery,
@@ -28,6 +30,7 @@ const SearchInput = ({
       }}
     >
       <input
+        autoFocus
         value={searchQuery}
         placeholder={`${searchKey} araması yapılıyor`}
         onChange={(e) => {
@@ -35,12 +38,13 @@ const SearchInput = ({
         }}
       />
       <button
+        style={{backgroundColor:"white", border:"none"}}
         onClick={() => {
           setSearchQuery("");
           setSearchInputClicked(false);
         }}
       >
-        close
+        <RiCloseCircleFill size={30} />
       </button>
       <div
         style={{
@@ -49,19 +53,7 @@ const SearchInput = ({
           alignItems: "center",
           display: "grid",
         }}
-      >
-        {searchQuery !== ""
-          ? data.map((item) => {
-              return (
-                <ul key={item.id}>
-                  <a style={{ color: "black" }} href={`#${item.title}`}>
-                    {item.title}
-                  </a>
-                </ul>
-              );
-            })
-          : "lütfen bir harf giriniz"}
-      </div>
+      ></div>
     </div>
   );
 };

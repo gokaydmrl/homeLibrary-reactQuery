@@ -11,10 +11,20 @@ const Obje = ({ contentModalShow, setContentModalShow, obje }) => {
     >
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
-          update book
+          read content
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>noth</Modal.Body>
+      <Modal.Body>{obje.content} </Modal.Body>
+      <Modal.Footer>
+        <button
+          onClick={() => {
+            setContentModalShow(false);
+          }}
+        >
+          {" "}
+          close
+        </button>{" "}
+      </Modal.Footer>
     </Modal>
   );
 };

@@ -7,6 +7,7 @@ import { MdOutlineMenuBook } from "react-icons/md";
 import PatchBookModal from "./PatchBookModal";
 import { HiPencilAlt } from "react-icons/hi";
 import SearchInput from "./SearchInput";
+import { BiSearchAlt } from "react-icons/bi";
 
 const DataTable = ({
   data,
@@ -69,26 +70,47 @@ const DataTable = ({
               <th style={{ width: "auto" }}>
                 Title
                 <span
-                  style={{ marginLeft: "20px", cursor:"pointer" }}
+                  style={{ marginLeft: "15px", cursor: "pointer" }}
                   onClick={() => {
                     openSearchInput("title");
                   }}
                 >
-                  ara
+                  <BiSearchAlt size={25} />
                 </span>
               </th>
               <th style={{ width: "auto" }}>
                 Author{" "}
                 <span
+                  style={{ marginLeft: "15px", cursor: "pointer" }}
                   onClick={() => {
                     openSearchInput("author");
                   }}
                 >
-                  ara
+                  <BiSearchAlt size={25} />
                 </span>
               </th>
-              <th style={{ width: "auto" }}>Translator</th>
-              <th style={{ width: "auto" }}>Publisher</th>
+              <th style={{ width: "auto" }}>
+                Translator{" "}
+                <span
+                  style={{ marginLeft: "15px", cursor: "pointer" }}
+                  onClick={() => {
+                    openSearchInput("translator");
+                  }}
+                >
+                  <BiSearchAlt size={25} />
+                </span>{" "}
+              </th>
+              <th style={{ width: "auto" }}>
+                Publisher{" "}
+                <span
+                  style={{ marginLeft: "15px", cursor: "pointer" }}
+                  onClick={() => {
+                    openSearchInput("publisher");
+                  }}
+                >
+                  <BiSearchAlt size={25} />
+                </span>{" "}
+              </th>
               <th style={{ width: "auto" }}>Read?</th>
               <th style={{ width: "auto" }}>Content</th>
               <th style={{ width: "auto" }}>Update</th>
