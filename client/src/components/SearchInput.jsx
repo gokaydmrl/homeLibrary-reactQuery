@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
-import {RiCloseCircleFill} from "react-icons/ri"
+import { RiCloseCircleFill } from "react-icons/ri";
 
 const SearchInput = ({
   searchQuery,
@@ -10,16 +10,6 @@ const SearchInput = ({
   data,
   searchKey,
 }) => {
-  if (searchKey === "title") {
-    data = data.filter((filteredItem) =>
-      filteredItem.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  } else if (searchKey === "author") {
-    data = data.filter((filteredItem) =>
-      filteredItem[searchKey].toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }
-
   return (
     <div
       style={{
@@ -38,7 +28,7 @@ const SearchInput = ({
         }}
       />
       <button
-        style={{backgroundColor:"white", border:"none"}}
+        style={{ backgroundColor: "white", border: "none" }}
         onClick={() => {
           setSearchQuery("");
           setSearchInputClicked(false);
@@ -46,14 +36,6 @@ const SearchInput = ({
       >
         <RiCloseCircleFill size={30} />
       </button>
-      <div
-        style={{
-          textAlign: "left",
-          justifyContent: "center",
-          alignItems: "center",
-          display: "grid",
-        }}
-      ></div>
     </div>
   );
 };

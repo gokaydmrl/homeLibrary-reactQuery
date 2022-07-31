@@ -43,3 +43,18 @@ exports.patchBookHandler = async (req, res) => {
 
   res.status(200).json(patchedBook);
 };
+
+///
+
+exports.deleteBookHandler = async (req, res) => {
+  const { id } = req.params;
+
+  const deleteBook = await prisma.Books.delete({
+    where: {
+      id: Number(id),
+    },
+    rejectOnNotFound: false,
+  });
+  console.log("deleted book id", id);
+  res.json(deleteBook);
+};

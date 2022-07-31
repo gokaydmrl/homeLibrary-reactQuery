@@ -7,5 +7,6 @@ router.get("/books", bookController.getBooksHandler);
 router.get("/books/:id", bookController.getBookHandler);
 router.post("/books", bookController.createBookHandler);
 router.patch("/books/:id", bookController.patchBookHandler)
+router.delete("/books/:id", bookController.deleteBookHandler)
 
 module.exports = router;

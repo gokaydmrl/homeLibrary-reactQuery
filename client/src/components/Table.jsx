@@ -8,6 +8,8 @@ import PatchBookModal from "./PatchBookModal";
 import { HiPencilAlt } from "react-icons/hi";
 import SearchInput from "./SearchInput";
 import { BiSearchAlt } from "react-icons/bi";
+import useDeleteBook from "../api/useDeleteBook";
+import { FaEraser } from "react-icons/fa";
 
 const DataTable = ({
   data,
@@ -21,6 +23,14 @@ const DataTable = ({
   const [bookId, setBookId] = useState(null);
   const [contentModalShow, setContentModalShow] = useState(false);
   const [searchKey, setSearchKey] = useState("");
+
+  const { mutate: deleteBook } = useDeleteBook();
+
+  const confirmDeleteHandler = (id) => {
+    if (confirm("are you sure")) {
+      deleteBook(id);
+    }
+  };
 
   const openSearchInput = (key) => {
     setSearchInputClicked(true);
@@ -38,7 +48,7 @@ const DataTable = ({
     });
   }, [data, searchKey, searchQuery]);
 
-  console.log("bu hangi şov", syncData);
+  // console.log("bu hangi şov", syncData);
 
   return (
     <div
@@ -114,6 +124,7 @@ const DataTable = ({
               <th style={{ width: "auto" }}>Read?</th>
               <th style={{ width: "auto" }}>Content</th>
               <th style={{ width: "auto" }}>Update</th>
+              <th style={{ width: "auto" }}>Delete</th>
             </tr>
           </thead>
 
@@ -128,6 +139,7 @@ const DataTable = ({
                   <td>{item.read === true ? "evet" : "hayır"} </td>
                   <td style={{ backgroundColor: "white" }}>
                     <MdOutlineMenuBook
+                      color={item.dbColor}
                       onClick={() => {
                         setObje(item);
                         setContentModalShow(true);
@@ -137,14 +149,24 @@ const DataTable = ({
                     />
                   </td>
 
-                  <td
-                    style={{ backgroundColor: "white" }}
-                    onClick={() => {
-                      setBookId(item.id);
-                      setShow(true);
-                    }}
-                  >
-                    <HiPencilAlt size={40} />
+                  <td style={{ backgroundColor: "white" }}>
+                    <HiPencilAlt
+                      color={item.dbColor}
+                      onClick={() => {
+                        setBookId(item.id);
+                        setShow(true);
+                      }}
+                      cursor={"pointer"}
+                      size={40}
+                    />
+                  </td>
+                  <td style={{ backgroundColor: "white" }}>
+                    <FaEraser
+                      color={item.dbColor}
+                      onClick={() => confirmDeleteHandler(item.id)}
+                      size={40}
+                      cursor={"pointer"}
+                    />
                   </td>
                 </tr>
               </tbody>
