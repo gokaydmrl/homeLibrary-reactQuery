@@ -26,7 +26,10 @@ exports.registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = await prisma.User.create({
-      data: { userName, password: hashedPassword },
+      data: {
+        userName,
+        password: hashedPassword,
+      },
     });
 
     const token = generateToken(user.id);
@@ -40,6 +43,7 @@ exports.registerUser = async (req, res) => {
         userName: userName,
         token: token,
         password: hashedPassword,
+        userID: user.id,
       });
     console.log("req headers: ", req.headers);
 

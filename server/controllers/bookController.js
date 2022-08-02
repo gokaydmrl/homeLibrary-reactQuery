@@ -68,6 +68,7 @@ exports.deleteBookHandler = async (req, res) => {
 
 exports.usars = async (req, res) => {
   const usars = await prisma.Books.findMany({
+    where: { ownerID: 4 },
     include: { owner: true },
   });
   res.json(usars);
