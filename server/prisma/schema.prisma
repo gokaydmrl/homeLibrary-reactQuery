@@ -17,13 +17,13 @@ model Books {
   publisher  String
   createdAt  DateTime @default(now())
   dbColor    String
-  owner      User @relation(fields: [ownerID], references: [userID])
+  owner      User @relation(fields: [ownerID], references: [id])
   ownerID    Int
 
 }
 
 model User {
-  userID       Int     @unique  @id @default(autoincrement())
+  id       Int     @unique  @id @default(autoincrement())
   userName     String  @unique  @db.VarChar(255)
   password     String  @unique  @db.VarChar(255)
   createdAt    DateTime  @default(now())
