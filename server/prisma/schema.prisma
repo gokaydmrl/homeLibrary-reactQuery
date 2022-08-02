@@ -23,7 +23,7 @@ model Books {
 }
 
 model User {
-  id       Int     @unique  @id @default(autoincrement())
+  id           Int     @unique  @id @default(autoincrement())
   userName     String  @unique  @db.VarChar(255)
   password     String  @unique  @db.VarChar(255)
   createdAt    DateTime  @default(now())

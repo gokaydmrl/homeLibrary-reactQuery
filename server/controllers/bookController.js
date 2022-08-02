@@ -1,17 +1,18 @@
 const { PrismaClient } = require("@prisma/client");
+const { use } = require("../router/userRouter");
 
 const prisma = new PrismaClient();
 
-exports.getOneBookHandler = async (req, res) => {
+exports.getManyBookHandler = async (req, res) => {
   const ownerID = parseInt(req.params.ownerID);
 
   try {
-    const getBook = await prisma.Books.findUnique({
+    const getBook = await prisma.Books.findMany({
       where: {
         ownerID,
       },
       include: {
-        ownerID,
+        owner: true,
       },
     });
     res.status(200).json(getBook);
@@ -23,9 +24,14 @@ exports.getOneBookHandler = async (req, res) => {
 ////
 
 exports.getBooksHandler = async (req, res) => {
-  // const { userName } = req.params;
+  const userID = req.userID;
+  console.log("getBooktan userID", userID);
 
-  const getBooks = await prisma.Books.findMany({});
+  const getBooks = await prisma.Books.findMany({
+    where: {
+      ownerID: userID,
+    },
+  });
   res.status(200).json(getBooks);
 };
 

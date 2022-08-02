@@ -33,8 +33,6 @@ exports.registerUser = async (req, res) => {
     });
 
     const token = generateToken(user.id);
-    const userID = user.userID;
-    console.log("userid", user.userID);
 
     // axios'a gidecek burdan gönderilen data (response.data)
     // passwoord göndermeye gerek yok sanırım
@@ -44,8 +42,6 @@ exports.registerUser = async (req, res) => {
       .json({
         userName: userName,
         token: token,
-        password: hashedPassword,
-        userID,
       });
     // console.log("req headers: ", req.headers);
     // console.log("req.user :", req.user);
