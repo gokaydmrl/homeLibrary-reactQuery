@@ -9,8 +9,7 @@ router.get("/books/", bookController.getBooksHandler);
 router.post("/books/", bookController.createBookHandler);
 router.patch("/books/:id", bookController.patchBookHandler);
 router.delete("/books/:id", bookController.deleteBookHandler);
-// router.get("/books/:userID", bookController.getOneBookHandler);
+router.get("/books/:ownerID", bookController.getOneBookHandler);
 router.get("/books/usars", bookController.usars);
-
 
 module.exports = router;

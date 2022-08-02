@@ -33,6 +33,8 @@ exports.registerUser = async (req, res) => {
     });
 
     const token = generateToken(user.id);
+    const userID = user.userID;
+    console.log("userid", user.userID);
 
     // axios'a gidecek burdan gönderilen data (response.data)
     // passwoord göndermeye gerek yok sanırım
@@ -43,11 +45,10 @@ exports.registerUser = async (req, res) => {
         userName: userName,
         token: token,
         password: hashedPassword,
-        userID: user.id,
+        userID,
       });
-    console.log("req headers: ", req.headers);
-
-    console.log("req.user :", req.user);
+    // console.log("req headers: ", req.headers);
+    // console.log("req.user :", req.user);
   } catch (error) {
     console.log("error from regi", error);
 

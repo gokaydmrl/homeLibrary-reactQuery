@@ -26,7 +26,7 @@ const Register = () => {
       if (response.status === 201) {
         const token = response.headers.authorization.split(" ")[1];
         localStorage.setItem("token", token);
-      //  localStorage.setItem("userID", response.data.userID);
+        localStorage.setItem("userID", response.data.userID);
         console.log("axios resp", response);
         console.log("token", token);
         console.log("rsp data", response.data);
