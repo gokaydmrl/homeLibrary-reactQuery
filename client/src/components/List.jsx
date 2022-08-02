@@ -21,7 +21,7 @@ const List = ({
   return (
     <div className="App">
       <h2>Book List</h2>
-
+      <h3>{data?.length === 0 && "start adding book"}</h3>
       {isLoading === true && (
         <Spinner
           style={{ paddingTop: "10px" }}

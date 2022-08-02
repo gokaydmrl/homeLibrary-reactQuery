@@ -4,8 +4,12 @@ const booksRouter = require("./router/booksRouter");
 const cors = require("cors");
 app.use(express.json());
 
-app.use(cors());
-
+app.use(
+  cors({
+    credentials: true,
+    exposedHeaders: "authorization",
+  })
+);
 app.get("/", (req, res) => {
   res.send("we the express service workin");
 });
@@ -15,3 +19,4 @@ app.listen("3001", () => {
 });
 
 app.use("/", require("./router/booksRouter"));
+app.use("/user", require("./router/userRouter"));

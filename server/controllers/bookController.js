@@ -2,20 +2,27 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-exports.getBookHandler = async (req, res) => {
-  const id = parseInt(req.params.id);
-  const getBook = await prisma.Books.findUnique({
-    where: {
-      id,
-    },
-  });
-  res.status(200).json(getBook);
-};
+// exports.getOneBookHandler = async (req, res) => {
+//   const userID = parseInt(req.params.userID);
+
+//   try {
+//     const getBook = await prisma.Books.findUnique({
+//       where: {
+//         userID: userID,
+//       },
+//     });
+//     res.status(200).json(getBook);
+//   } catch (error) {
+//     console.log("one book er", error);
+//   }
+// };
 
 ////
 
 exports.getBooksHandler = async (req, res) => {
-  const getBooks = await prisma.Books.findMany();
+  // const { userName } = req.params;
+
+  const getBooks = await prisma.Books.findMany({});
   res.status(200).json(getBooks);
 };
 
@@ -57,4 +64,11 @@ exports.deleteBookHandler = async (req, res) => {
   });
   console.log("deleted book id", id);
   res.json(deleteBook);
+};
+
+exports.usars = async (req, res) => {
+  const usars = await prisma.Books.findMany({
+    include: { owner: true },
+  });
+  res.json(usars);
 };
