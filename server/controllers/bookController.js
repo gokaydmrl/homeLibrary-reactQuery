@@ -40,8 +40,22 @@ exports.getBooksHandler = async (req, res) => {
 exports.createBookHandler = async (req, res) => {
   const { title, content, author, read, translator, publisher, dbColor } =
     req.body;
+  const ownerID = req.userID;
+
   const book = await prisma.Books.create({
-    data: { title, content, author, read, translator, publisher, dbColor },
+    data: {
+      title,
+      content,
+      author,
+      read,
+      translator,
+      publisher,
+      dbColor,
+      ownerID,
+    },
+    include: {
+      owner: true,
+    },
   });
   res.status(201).json(book);
 };
@@ -65,14 +79,18 @@ exports.patchBookHandler = async (req, res) => {
 exports.deleteBookHandler = async (req, res) => {
   const { id } = req.params;
 
-  const deleteBook = await prisma.Books.delete({
-    where: {
-      id: Number(id),
-    },
-    rejectOnNotFound: false,
-  });
-  console.log("deleted book id", id);
-  res.json(deleteBook);
+  try {
+    const deleteBook = await prisma.Books.delete({
+      where: {
+        id: Number(id),
+      },
+      rejectOnNotFound: false,
+    });
+    console.log("deleted book id", id);
+    res.json(deleteBook);
+  } catch (error) {
+    console.log("delete error", error);
+  }
 };
 
 exports.usars = async (req, res) => {

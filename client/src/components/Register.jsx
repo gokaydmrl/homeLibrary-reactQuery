@@ -3,9 +3,18 @@ import { useState } from "react";
 import RegisterInputs from "./RegisterInputs";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { GiBookshelf } from "react-icons/gi";
+import { useEffect } from "react";
 
 const Register = () => {
   const navigate = useNavigate();
+
+  const [err, setErr] = useState("");
+  const [nameError, setNameError] = useState("");
+  console.log("bu er", err);
 
   const [user, setUser] = useState({
     userName: "",
@@ -26,17 +35,27 @@ const Register = () => {
         "http://localhost:3001/user/register",
         user
       );
-      if (response.status === 201) {
+
+      if (response.data.error) {
+        console.log("error", response);
+        console.log(response.data.error);
+        console.log("this text error", text);
+        console.log("sbmt er", err);
+      } else if (response.status === 201) {
         const token = response.headers.authorization.split(" ")[1];
         localStorage.setItem("token", token);
         console.log("axios resp", response);
         console.log("token", token);
         console.log("rsp data", response.data);
       }
+
       setUser(response.data);
       navigate("/home", { replace: true });
     } catch (error) {
-      console.log("err while registering", error);
+      console.log("reg error", error);
+        setErr(error.response.data.error);
+      
+      setNameError(error.response.data.nameError);
     }
 
     setUser({
@@ -46,13 +65,65 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <RegisterInputs
-        user={user}
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-      />
-    </div>
+    <>
+      <div
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          background: "linear-gradient(225deg, grey, pink)",
+          padding: "50px",
+          display: "flex",
+          height: "100%",
+          paddingBottom: "80px",
+        }}
+      >
+        <div
+          style={{
+            marginTop: "80px",
+            marginLeft: "100px",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <h1>Organize Your Books</h1>
+          <br />
+          <GiBookshelf
+            style={{
+              display: "flex",
+            }}
+            size={350}
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            margin: "40px auto auto",
+            padding: "50px",
+            background: "linear-gradient(135deg, orange, pink)",
+            width: "40%",
+            borderRadius: "30%",
+          }}
+        >
+          <RegisterInputs
+            nameError={nameError}
+            err={err}
+            user={user}
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+          />
+        </div>
+      </div>
+      <div
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          marginTop: "20px",
+        }}
+      >
+        created by <strong> Gökay Demirel</strong>
+      </div>
+    </>
   );
 };
 

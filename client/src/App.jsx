@@ -11,6 +11,7 @@ import {
   BrowserRouter,
   useNavigate,
 } from "react-router-dom";
+import Login from "./components/Login";
 
 // npm WARN deprecated react-query@4.0.0: Please use @tanstack/react-query for v4+
 
@@ -24,11 +25,10 @@ function App() {
       <QueryClientProvider client={queryClient} contextSharing={true}>
         <BrowserRouter>
           <Routes>
-            {token ? (
-              <Route path="/home" element={<AddBook />} />
-            ) : (
-              <Route path="/register" element={<Register />} />
-            )}
+            <Route path="/home" element={<AddBook />} />
+            <Route path="/login" element={<Login />} />
+
+            <Route path="/register" element={<Register />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>
