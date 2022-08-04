@@ -1,6 +1,12 @@
 import React from "react";
 
-const LoginInputs = ({ user, handleSubmit, handleChange }) => {
+const LoginInputs = ({
+  user,
+  handleSubmit,
+  handleChange,
+  pswError,
+  nameError,
+}) => {
   return (
     <div>
       <form autoComplete="off" onSubmit={handleSubmit}>
@@ -13,6 +19,8 @@ const LoginInputs = ({ user, handleSubmit, handleChange }) => {
           autoComplete="off"
         />
         <br />
+        {nameError !== "" && nameError}
+
         <br />
         <input
           placeholder="password"
@@ -22,6 +30,8 @@ const LoginInputs = ({ user, handleSubmit, handleChange }) => {
           onChange={handleChange}
           autoComplete="off"
         />
+        {pswError !== "" && pswError}
+
         <button>Log in</button>
       </form>
     </div>

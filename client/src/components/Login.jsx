@@ -1,10 +1,13 @@
 import axios from "axios";
 import React from "react";
-import LoginInputs from "./LoginInputs"
+import LoginInputs from "./LoginInputs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [pswError, setPswError] = useState("");
+  const [nameError, setNameError] = useState("");
+
   const [user, setUser] = useState({
     userName: "",
     password: "",
@@ -22,32 +25,46 @@ const Login = () => {
     console.log("this login user", user);
 
     try {
-      const response = await axios.post("http://localhost:3001/user/login", user);
-      const token = response.headers.authorization.split(" ")[1];
-      // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      localStorage.setItem("token", token);
+      const response = await axios.post(
+        "http://localhost:3001/user/login",
+        user
+      );
+      if (response.data.error) {
+        console.log("error", response);
+        console.log(response.data.error);
+        return;
+      } else if (response.status === 201) {
+        const token = response.headers.authorization.split(" ")[1];
+        // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        localStorage.setItem("token", token);
 
-      console.log("resp status", response.status);
-      console.log("rsp data token", response.data.token);
-      console.log("token", token);
-      console.log("rsp data", response.data);
-      console.log("tkn", token);
-      navigate("../home", { replace: true });
+        console.log("resp status", response.status);
+        console.log("rsp data token", response.data.token);
+        console.log("token", token);
+        console.log("rsp data", response.data);
+        console.log("tkn", token);
+        setUser({
+          userName: "",
+          password: "",
+        });
+        navigate("../home", { replace: true });
+      }
 
       setUser(response.data);
     } catch (error) {
       console.log(error);
+      console.log("login err resp: ", error.response.data);
+      setPswError(error.response.data.pswError);
+      setNameError(error.response.data.nameError);
+      console.log("pswerr", pswError);
     }
-
-    setUser({
-      userName: "",
-      password: "",
-    });
   };
 
   return (
     <div>
       <LoginInputs
+        nameError={nameError}
+        pswError={pswError}
         user={user}
         handleSubmit={handleSubmit}
         handleChange={handleChange}

@@ -73,17 +73,24 @@ exports.loginUser = async (req, res) => {
   try {
     const { userName, password } = req.body;
 
-    const user = await prisma.User.findUnique({ where: { userName } });
+    const user = await prisma.User.findUnique({
+      where: { userName },
+    });
+    console.log("loginden user", user);
+    const isPassword = bcrypt.compare(password, user?.password);
 
-    console.log("cntr user", user);
-    console.log("pswrd", password);
-    console.log("userpswrd", user.password);
-    console.log("id", user.id);
-    const token = generateToken(user.id);
-    console.log("this", bcrypt.compare(password, user.password));
-
-    if (user && (await bcrypt.compare(password, user.password))) {
-      res
+    if (!user) {
+      return res.status(400).json({ nameError: "no user name found" });
+    } else if (user && (await !isPassword)) {
+      return res.status(400).json({ pswError: "no password matched" });
+    } else if (user && (await bcrypt.compare(password, user.password))) {
+      console.log("cntr user", user);
+      console.log("pswrd", password);
+      console.log("userpswrd", user.password);
+      console.log("id", user.id);
+      const token = generateToken(user.id);
+      console.log("this", bcrypt.compare(password, user.password));
+      return res
         .header({ Authorization: `Bearer ${token}` })
         .json({ userName: user.userName, token: token });
     }
