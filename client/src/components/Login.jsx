@@ -29,9 +29,9 @@ const Login = () => {
         "http://localhost:3001/user/login",
         user
       );
-      if (response.data.error) {
+      if (response.status !== 201) {
         console.log("error", response);
-        console.log(response.data.error);
+        console.log(response.data);
         return;
       } else if (response.status === 201) {
         const token = response.headers.authorization.split(" ")[1];
