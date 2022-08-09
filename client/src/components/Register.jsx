@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import RegisterInputs from "./RegisterInputs";
 import axios from "axios";
@@ -8,13 +7,19 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { GiBookshelf } from "react-icons/gi";
 import { useEffect } from "react";
+import Login from "./Login";
+import LoginInputs from "./LoginInputs";
+import { Link } from "react-router-dom";
+import { AiFillGithub } from "react-icons/ai";
+import Footer from "./Footer";
 
 const Register = () => {
   const navigate = useNavigate();
 
   const [err, setErr] = useState("");
   const [nameError, setNameError] = useState("");
-  console.log("bu er", err);
+  const [auth, setAuth] = useState(true);
+  // console.log("bu er", err);
 
   const [user, setUser] = useState({
     userName: "",
@@ -53,8 +58,7 @@ const Register = () => {
       navigate("/home", { replace: true });
     } catch (error) {
       console.log("reg error", error);
-        setErr(error.response.data.error);
-      
+      setErr(error.response.data.error);
       setNameError(error.response.data.nameError);
     }
 
@@ -85,7 +89,10 @@ const Register = () => {
             justifyContent: "center",
           }}
         >
-          <h1>Organize Your Books</h1>
+          <h3>homeLibrary</h3>
+          <h2>the most colorful way</h2>
+          <h1>to list your books </h1>
+
           <br />
           <GiBookshelf
             style={{
@@ -104,7 +111,17 @@ const Register = () => {
             borderRadius: "30%",
           }}
         >
+          {/* <h3
+            style={{
+              textAlign: "center",
+              justifyContent: "center",
+              alignItems:"center"
+            }}
+          >
+            REGISTER
+          </h3> */}
           <RegisterInputs
+            setAuth={setAuth}
             nameError={nameError}
             err={err}
             user={user}
@@ -113,16 +130,7 @@ const Register = () => {
           />
         </div>
       </div>
-      <div
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
-          marginTop: "20px",
-        }}
-      >
-        created by <strong> Gökay Demirel</strong>
-      </div>
+      <Footer />
     </>
   );
 };

@@ -3,6 +3,9 @@ import React from "react";
 // import getBooks from "../api/getBooksAction";
 import DataTable from "./Table";
 import Spinner from "react-bootstrap/Spinner";
+import Login from "./Login";
+import { Link } from "react-router-dom";
+import NoToken from "./NoToken";
 
 const List = ({
   isLoading,
@@ -13,32 +16,35 @@ const List = ({
   searchInputClicked,
   setSearchInputClicked,
 }) => {
-  // const queryClient = useQueryClient();
-  // const query = useQuery(["books"], getBooks);
-  // console.log("query data", query);
-  // const { isLoading, isSuccess, data } = useQuery(["books"], getBooks);
+  const token = localStorage.getItem("token");
 
   return (
-    <div className="App">
-      <h2>Book List</h2>
-      <h3>{data?.length === 0 && "start adding book"}</h3>
-      {isLoading === true && (
-        <Spinner
-          style={{ paddingTop: "10px" }}
-          animation="border"
-          role="status"
-        />
+    <>
+      {!token ? (
+        <NoToken />
+      ) : (
+        <div className="App">
+          <h2>Book List</h2>
+          <h3>{data?.length === 0 && "start adding book"}</h3>
+          {isLoading === true && (
+            <Spinner
+              style={{ paddingTop: "10px" }}
+              animation="border"
+              role="status"
+            />
+          )}
+          {isSuccess === true && (
+            <DataTable
+              data={data}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              searchInputClicked={searchInputClicked}
+              setSearchInputClicked={setSearchInputClicked}
+            />
+          )}
+        </div>
       )}
-      {isSuccess === true && (
-        <DataTable
-          data={data}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          searchInputClicked={searchInputClicked}
-          setSearchInputClicked={setSearchInputClicked}
-        />
-      )}
-    </div>
+    </>
   );
 };
 

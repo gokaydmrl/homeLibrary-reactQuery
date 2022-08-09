@@ -88,6 +88,7 @@ exports.loginUser = async (req, res) => {
         console.log("userpswrd", user.password);
         console.log("id", user.id);
         const token = generateToken(user.id);
+        console.log("controller token", token);
         console.log("this", bcrypt.compare(password, user.password));
         return res
           .header({ Authorization: `Bearer ${token}` })

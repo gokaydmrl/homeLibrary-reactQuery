@@ -1,5 +1,6 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 const RegisterInputs = ({
   user,
@@ -71,6 +72,17 @@ const RegisterInputs = ({
       >
         Register
       </Button>
+      <br />
+      <Link to="/login">
+        <p
+          
+          style={{
+            float: "right",
+          }}
+        >
+          Already have an account? Login.
+        </p>
+      </Link>
     </Form>
   );
 };

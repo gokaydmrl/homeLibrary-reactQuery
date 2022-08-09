@@ -5,6 +5,7 @@ const getBooks = async () => {
 
   try {
     console.log("calling get books");
+    console.log("get action token", token);
     const response = await axios.get(`http://localhost:3001/books`, {
       headers: {
         Authorization: `Bearer ${token}`,

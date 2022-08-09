@@ -29,16 +29,18 @@ const Login = () => {
         "http://localhost:3001/user/login",
         user
       );
-      if (response.status !== 201) {
+      if (response.status === 400) {
         console.log("error", response);
         console.log(response.data);
         return;
-      } else if (response.status === 201) {
+      } else {
+        console.log("başarılı resp ", response);
         const token = response.headers.authorization.split(" ")[1];
+        console.log("başr resp token", token);
         // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         localStorage.setItem("token", token);
 
-        console.log("resp status", response.status);
+        console.log("resp head", response.headers);
         console.log("rsp data token", response.data.token);
         console.log("token", token);
         console.log("rsp data", response.data);
@@ -47,9 +49,8 @@ const Login = () => {
           userName: "",
           password: "",
         });
-        navigate("../home", { replace: true });
       }
-
+      navigate("../home", { replace: true });
       setUser(response.data);
     } catch (error) {
       console.log(error);

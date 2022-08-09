@@ -1,5 +1,11 @@
 import React from "react";
 
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+import Footer from "./Footer";
+import LoginIcon from "./LoginIcon";
+
 const LoginInputs = ({
   user,
   handleSubmit,
@@ -8,33 +14,111 @@ const LoginInputs = ({
   nameError,
 }) => {
   return (
-    <div>
-      <form autoComplete="off" onSubmit={handleSubmit}>
-        <input
-          placeholder="user name"
-          type="text"
-          name="userName"
-          value={user.userName}
-          onChange={handleChange}
-          autoComplete="off"
-        />
-        <br />
-        {nameError !== "" && nameError}
+    <>
+      <div
+        style={{
+          background: "linear-gradient(225deg, grey, pink)",
+          padding:"20px"
+        }}
+      >
+        <div
+          style={{
+            background: "linear-gradient(135deg, orange, pink)",
+            padding: "40px",
+            borderRadius: "80px",
+            width: "60%",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "40px auto",
+          }}
+        >
+          <LoginIcon />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Form
+              style={{ width: "30%" }}
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <Form.Group className="mb-3">
+                <Form.Label
+                  style={{
+                    margin: "10px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  user name
+                </Form.Label>
+                <Form.Control
+                  placeholder="user name"
+                  type="text"
+                  name="userName"
+                  value={user.userName}
+                  onChange={handleChange}
+                  autoComplete="off"
+                />
+              </Form.Group>
 
-        <br />
-        <input
-          placeholder="password"
-          type="password"
-          name="password"
-          value={user.password}
-          onChange={handleChange}
-          autoComplete="off"
-        />
-        {pswError !== "" && pswError}
+              <p
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                {" "}
+                {nameError !== "" && nameError}{" "}
+              </p>
 
-        <button>Log in</button>
-      </form>
-    </div>
+              <Form.Group className="mb-3">
+                <Form.Label
+                  style={{
+                    margin: "10px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  password
+                </Form.Label>
+                <Form.Control
+                  placeholder="password"
+                  type="password"
+                  name="password"
+                  value={user.password}
+                  onChange={handleChange}
+                  autoComplete="off"
+                />
+                <p
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  {" "}
+                  {pswError !== "" && pswError}{" "}
+                </p>
+              </Form.Group>
+
+              <Button type="submit">Log in</Button>
+              <br />
+              <Link to="/register">
+                <p
+                  style={{
+                    float: "right",
+                  }}
+                >
+                  Create an account.
+                </p>
+              </Link>
+            </Form>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 };
 

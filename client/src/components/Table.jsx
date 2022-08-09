@@ -3,7 +3,7 @@ import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import ContentModal from "./ContentModal";
 import Container from "react-bootstrap/Container";
-import { MdOutlineMenuBook } from "react-icons/md";
+import { GiSpellBook } from "react-icons/gi";
 import PatchBookModal from "./PatchBookModal";
 import { HiPencilAlt } from "react-icons/hi";
 import SearchInput from "./SearchInput";
@@ -48,7 +48,6 @@ const DataTable = ({
     });
   }, [data, searchKey, searchQuery]);
 
-  // console.log("bu hangi şov", syncData);
 
   return (
     <div
@@ -138,14 +137,14 @@ const DataTable = ({
                   <td>{item.publisher} </td>
                   <td>{item.read === true ? "evet" : "hayır"} </td>
                   <td style={{ backgroundColor: "white" }}>
-                    <MdOutlineMenuBook
+                    <GiSpellBook
                       color={item.dbColor}
                       onClick={() => {
                         setObje(item);
                         setContentModalShow(true);
                       }}
                       cursor={"pointer"}
-                      size={40}
+                      size={45}
                     />
                   </td>
 

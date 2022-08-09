@@ -3,12 +3,11 @@ import useAddBook from "../api/useAddBook";
 import List from "./List";
 import AddBookModal from "./AddBookModal";
 import { GiWhiteBook } from "react-icons/gi";
-import { GiArchiveResearch } from "react-icons/gi";
-import SearchInput from "../components/SearchInput";
-
+import { GoSignOut } from "react-icons/go";
 import { useQuery } from "@tanstack/react-query";
 import getBooks from "../api/getBooksAction";
 import { useMemo } from "react";
+import { useNavigate } from "react-router";
 
 const AddBook = () => {
   // const query = useQuery(["books"], getBooks);
@@ -16,13 +15,13 @@ const AddBook = () => {
   const { isLoading, isSuccess, data } = useQuery(["books"], getBooks, {
     select: (data) => data.sort((x, y) => y.id - x.id),
   });
-  const filteredData =  useMemo(() => data, [data])
+  const filteredData = useMemo(() => data, [data]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchInputClicked, setSearchInputClicked] = useState(false);
+  const navigate = useNavigate();
 
-  
-
-  console.log("data from addbook", data);
+  const token = localStorage.getItem("token");
+  // console.log("data from addbook", data);
 
   const [book, setBook] = useState({
     id: "",
@@ -71,15 +70,19 @@ const AddBook = () => {
     <>
       <div
         style={{
-          padding: "29px",
+          padding: "30px",
           justifyContent: "center",
-          display: "flex",
           textAlign: "center",
         }}
       >
         <button
+          disabled={token ? false : true}
           size="lg"
-          style={{ backgroundColor: "white", border: "none" }}
+          style={{
+            backgroundColor: "white",
+            border: "none",
+            marginLeft: "30px",
+          }}
           onClick={() => {
             setModalShow(true);
           }}
@@ -87,6 +90,19 @@ const AddBook = () => {
           <GiWhiteBook size={60} />
         </button>
         <button
+          onClick={() => {
+            navigate("../login", { replace: true });
+            localStorage.removeItem("token");
+          }}
+          style={{
+            border: "none",
+            backgroundColor: "white",
+            float: "right",
+          }}
+        >
+          <GoSignOut size={30} />
+        </button>
+        {/* <button
           size="lg"
           style={{ backgroundColor: "white", border: "none" }}
           onClick={() => {
@@ -94,8 +110,8 @@ const AddBook = () => {
             setSearchQuery("");
           }}
         >
-          <GiArchiveResearch size={60} />
-        </button>
+          <GiArchiveResearch size={60} /> 
+        </button> */}
       </div>
 
       <AddBookModal
