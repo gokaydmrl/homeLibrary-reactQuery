@@ -22,7 +22,7 @@ const SearchInput = ({
       <input
         autoFocus
         value={searchQuery}
-        placeholder={`${searchKey} araması yapılıyor`}
+        placeholder={`searching for ${searchKey} `}
         onChange={(e) => {
           setSearchQuery(e.target.value);
         }}

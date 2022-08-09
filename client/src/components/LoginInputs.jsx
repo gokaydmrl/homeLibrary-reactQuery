@@ -32,7 +32,7 @@ const LoginInputs = ({
             margin: "40px auto",
           }}
         >
-          <h2 style={{textAlign:"center"}}>homeLibrary</h2>
+          <h2 style={{ textAlign: "center" }}>homeLibrary</h2>
           <LoginIcon />
           <div
             style={{
@@ -98,7 +98,6 @@ const LoginInputs = ({
                     textAlign: "center",
                   }}
                 >
-                  {" "}
                   {pswError !== "" && pswError}{" "}
                 </p>
               </Form.Group>
