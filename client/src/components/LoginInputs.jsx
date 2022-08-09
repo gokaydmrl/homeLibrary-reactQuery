@@ -18,7 +18,7 @@ const LoginInputs = ({
       <div
         style={{
           background: "linear-gradient(225deg, grey, pink)",
-          padding:"20px"
+          padding: "20px",
         }}
       >
         <div
@@ -32,6 +32,7 @@ const LoginInputs = ({
             margin: "40px auto",
           }}
         >
+          <h2 style={{textAlign:"center"}}>homeLibrary</h2>
           <LoginIcon />
           <div
             style={{
@@ -102,7 +103,7 @@ const LoginInputs = ({
                 </p>
               </Form.Group>
 
-              <Button type="submit">Log in</Button>
+              <Button type="submit">Login</Button>
               <br />
               <Link to="/register">
                 <p

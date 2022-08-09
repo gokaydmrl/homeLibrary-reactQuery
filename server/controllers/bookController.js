@@ -3,7 +3,6 @@ const { use } = require("../router/userRouter");
 
 const prisma = new PrismaClient();
 
-
 ////
 
 exports.getBooksHandler = async (req, res) => {
@@ -55,6 +54,7 @@ exports.patchBookHandler = async (req, res) => {
   });
 
   res.status(200).json(patchedBook);
+  console.log(patchedBook);
 };
 
 ///

@@ -13,6 +13,7 @@ const PatchBookModal = ({ show, setShow, data, bookId }) => {
     id: patchedBookItem.id,
     content: patchedBookItem.content,
     dbColor: patchedBookItem.dbColor,
+    read: patchedBookItem.read,
   });
 
   const { mutate: patchBookItem } = usePatchBook();
@@ -26,6 +27,7 @@ const PatchBookModal = ({ show, setShow, data, bookId }) => {
     e.preventDefault();
     try {
       patchBookItem({ id: bookToPatch.id, bookItem: bookToPatch });
+      setShow(false);
     } catch (error) {
       console.log(error);
     }
@@ -67,8 +69,10 @@ const PatchBookModal = ({ show, setShow, data, bookId }) => {
             />
             <Form.Check
               onChange={() => {
-                // performans kaybı ve eski booku da verebilir: setBook({ ...book, read: true });
-                setBook((b) => ({ ...b, read: true }));
+                setBookToPatch((b) => ({
+                  ...b,
+                  read: true,
+                }));
               }}
               type="checkbox"
               placeholder="read"
@@ -77,7 +81,7 @@ const PatchBookModal = ({ show, setShow, data, bookId }) => {
               label="Have you read the book?"
             />
           </Form.Group>
-          <Button>Update</Button>
+          <Button type="submit">Update</Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>

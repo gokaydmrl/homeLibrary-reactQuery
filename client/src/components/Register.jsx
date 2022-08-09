@@ -111,15 +111,7 @@ const Register = () => {
             borderRadius: "30%",
           }}
         >
-          {/* <h3
-            style={{
-              textAlign: "center",
-              justifyContent: "center",
-              alignItems:"center"
-            }}
-          >
-            REGISTER
-          </h3> */}
+          
           <RegisterInputs
             setAuth={setAuth}
             nameError={nameError}

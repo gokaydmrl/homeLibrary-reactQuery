@@ -99,7 +99,7 @@ const AddBookModal = ({
             />
           </Form.Group>
 
-          <Button>Add</Button>
+          <Button type="submit">Add</Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>

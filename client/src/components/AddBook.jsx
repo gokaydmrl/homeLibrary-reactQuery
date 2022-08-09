@@ -46,10 +46,15 @@ const AddBook = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (book.title === "") {
+      alert("title cannot be left blank");
+      return;
+    }
+
     try {
       console.table("this book", book);
       postBookItem(book);
-      
+
       setBook({
         id: "",
         author: "",
@@ -102,16 +107,6 @@ const AddBook = () => {
         >
           <GoSignOut size={30} />
         </button>
-        {/* <button
-          size="lg"
-          style={{ backgroundColor: "white", border: "none" }}
-          onClick={() => {
-            setSearchInputClicked(!searchInputClicked);
-            setSearchQuery("");
-          }}
-        >
-          <GiArchiveResearch size={60} /> 
-        </button> */}
       </div>
 
       <AddBookModal

@@ -19,6 +19,7 @@ const Obje = ({ contentModalShow, setContentModalShow, obje }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button
+          type="submit"
           onClick={() => {
             setContentModalShow(false);
           }}

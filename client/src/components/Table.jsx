@@ -10,8 +10,8 @@ import SearchInput from "./SearchInput";
 import { BiSearchAlt } from "react-icons/bi";
 import useDeleteBook from "../api/useDeleteBook";
 import { FaEraser } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa"
-import {ImCross} from "react-icons/im"
+import { FaCheck } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
 
 const DataTable = ({
   data,
@@ -19,6 +19,7 @@ const DataTable = ({
   setSearchQuery,
   searchInputClicked,
   setSearchInputClicked,
+  setBook
 }) => {
   const [obje, setObje] = useState({});
   const [show, setShow] = useState(false);
@@ -49,7 +50,6 @@ const DataTable = ({
         .includes(searchQuery.toLowerCase());
     });
   }, [data, searchKey, searchQuery]);
-
 
   return (
     <div
@@ -190,6 +190,7 @@ const DataTable = ({
       </Container>
       {show && (
         <PatchBookModal
+          setBook={setBook}
           bookId={bookId}
           show={show}
           setShow={setShow}
