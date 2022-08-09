@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-
+import Button from "react-bootstrap/Button";
 const Obje = ({ contentModalShow, setContentModalShow, obje }) => {
   return (
     <Modal
@@ -14,16 +14,18 @@ const Obje = ({ contentModalShow, setContentModalShow, obje }) => {
           read content
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>{obje.content} </Modal.Body>
+      <Modal.Body>
+        {obje.content === "" ? "no content yet" : obje.content}
+      </Modal.Body>
       <Modal.Footer>
-        <button
+        <Button
           onClick={() => {
             setContentModalShow(false);
           }}
         >
           {" "}
           close
-        </button>{" "}
+        </Button>{" "}
       </Modal.Footer>
     </Modal>
   );

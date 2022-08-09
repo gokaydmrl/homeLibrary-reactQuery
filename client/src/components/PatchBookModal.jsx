@@ -77,7 +77,7 @@ const PatchBookModal = ({ show, setShow, data, bookId }) => {
               label="Have you read the book?"
             />
           </Form.Group>
-          <button>Update Your Book</button>
+          <Button>Update</Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>

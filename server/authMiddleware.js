@@ -2,10 +2,7 @@ const jwt = require("jsonwebtoken");
 
 exports.authMiddleware = (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
-  // if (
-  //   req.headers.Authorization &&
-  //   req.headers.Authorization.startsWith("Bearer")
-  // ) {
+ 
 
   if (token) {
     try {
@@ -18,8 +15,4 @@ exports.authMiddleware = (req, res, next) => {
       console.log("midleware error", error);
     }
   }
-
-  // else  {
-  //   res.json({ error: "no token" });
-  // }
 };

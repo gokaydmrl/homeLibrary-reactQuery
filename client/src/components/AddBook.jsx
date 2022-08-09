@@ -49,7 +49,7 @@ const AddBook = () => {
     try {
       console.table("this book", book);
       postBookItem(book);
-      alert("başarılı");
+      
       setBook({
         id: "",
         author: "",

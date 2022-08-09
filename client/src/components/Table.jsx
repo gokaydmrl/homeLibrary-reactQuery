@@ -10,6 +10,8 @@ import SearchInput from "./SearchInput";
 import { BiSearchAlt } from "react-icons/bi";
 import useDeleteBook from "../api/useDeleteBook";
 import { FaEraser } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa"
+import {ImCross} from "react-icons/im"
 
 const DataTable = ({
   data,
@@ -135,10 +137,16 @@ const DataTable = ({
                   <td>{item.author} </td>
                   <td>{item.translator} </td>
                   <td>{item.publisher} </td>
-                  <td>{item.read === true ? "evet" : "hayır"} </td>
+                  <td>
+                    {item.read === true ? (
+                      <FaCheck size={20} />
+                    ) : (
+                      <ImCross size={20} />
+                    )}{" "}
+                  </td>
                   <td style={{ backgroundColor: "white" }}>
                     <GiSpellBook
-                      color={item.dbColor}
+                      color={item.dbColor === "white" ? "black" : item.dbColor}
                       onClick={() => {
                         setObje(item);
                         setContentModalShow(true);
@@ -150,7 +158,7 @@ const DataTable = ({
 
                   <td style={{ backgroundColor: "white" }}>
                     <HiPencilAlt
-                      color={item.dbColor}
+                      color={item.dbColor === "white" ? "black" : item.dbColor}
                       onClick={() => {
                         setBookId(item.id);
                         setShow(true);
@@ -161,7 +169,7 @@ const DataTable = ({
                   </td>
                   <td style={{ backgroundColor: "white" }}>
                     <FaEraser
-                      color={item.dbColor}
+                      color={item.dbColor === "white" ? "black" : item.dbColor}
                       onClick={() => confirmDeleteHandler(item.id)}
                       size={40}
                       cursor={"pointer"}

@@ -4,24 +4,6 @@ const { use } = require("../router/userRouter");
 const prisma = new PrismaClient();
 
 
-exports.getManyBookHandler = async (req, res) => {
-  const ownerID = parseInt(req.params.ownerID);
-
-  try {
-    const getBook = await prisma.Books.findMany({
-      where: {
-        ownerID,
-      },
-      include: {
-        owner: true,
-      },
-    });
-    res.status(200).json(getBook);
-  } catch (error) {
-    console.log("one book er", error);
-  }
-};
-
 ////
 
 exports.getBooksHandler = async (req, res) => {
@@ -92,12 +74,4 @@ exports.deleteBookHandler = async (req, res) => {
   } catch (error) {
     console.log("delete error", error);
   }
-};
-
-exports.usars = async (req, res) => {
-  const usars = await prisma.Books.findMany({
-    where: { ownerID: 4 },
-    include: { owner: true },
-  });
-  res.json(usars);
 };
