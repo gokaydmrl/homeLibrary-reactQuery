@@ -30,7 +30,7 @@ const DataTable = ({
   const { mutate: deleteBook } = useDeleteBook();
 
   const confirmDeleteHandler = (id) => {
-    if (confirm("are you sure")) {
+    if (confirm("are you sure you want to delete the book")) {
       deleteBook(id);
     }
   };

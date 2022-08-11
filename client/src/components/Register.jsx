@@ -35,17 +35,19 @@ const Register = () => {
     e.preventDefault();
     console.log("this is user", user);
 
+    if (user.password.length < 6) {
+      alert("password must include 6 characters");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:3001/user/register",
         user
       );
-
+      console.log("reg çalıştı");
       if (response.data.error) {
         console.log("error", response);
-        console.log(response.data.error);
-        console.log("this text error", text);
-        console.log("sbmt er", err);
       } else if (response.status === 201) {
         const token = response.headers.authorization.split(" ")[1];
         localStorage.setItem("token", token);
@@ -111,7 +113,6 @@ const Register = () => {
             borderRadius: "30%",
           }}
         >
-          
           <RegisterInputs
             setAuth={setAuth}
             nameError={nameError}

@@ -80,7 +80,7 @@ const AddBookModal = ({
           <Form.Check
             onChange={() => {
               // performans kaybı ve eski booku da verebilir: setBook({ ...book, read: true });
-              setBook((b) => ({ ...b, read: true }));
+              setBook((b) => ({ ...b, read: !book.read }));
             }}
             type="checkbox"
             placeholder="read"

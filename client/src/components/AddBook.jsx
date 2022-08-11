@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import getBooks from "../api/getBooksAction";
 import { useMemo } from "react";
 import { useNavigate } from "react-router";
+import "../App.css";
 
 const AddBook = () => {
   // const query = useQuery(["books"], getBooks);
@@ -94,6 +95,7 @@ const AddBook = () => {
         >
           <GiWhiteBook size={60} />
         </button>
+
         <button
           onClick={() => {
             navigate("../login", { replace: true });

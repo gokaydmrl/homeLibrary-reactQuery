@@ -69,6 +69,7 @@ const LoginInputs = ({
               <p
                 style={{
                   textAlign: "center",
+                  color:"red"
                 }}
               >
                 {" "}

@@ -25,43 +25,43 @@ exports.registerUser = async (req, res) => {
   console.log("isexist", isExist);
 
   if (isExist) {
-    res.status(400).json({ nameError: "already exist" });
-  } else if (!isExist) {
+    res.status(400).json({ nameError: "user name already exists" });
+  } else {
     if (userName === "") {
       res.status(400).json({ error: "user name can not be left blank" });
-    }
-  } else if (userName !== "" && password !== "") {
-    try {
-      // hash password
+    } else {
+      try {
+        // hash password
+        console.log("bura devrede backnd");
+        const salt = await bcrypt.genSalt(8);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
-      const salt = await bcrypt.genSalt(8);
-      const hashedPassword = await bcrypt.hash(password, salt);
-
-      const user = await prisma.User.create({
-        data: {
-          userName,
-          password: hashedPassword,
-        },
-        include: { books: true },
-      });
-
-      const token = generateToken(user.id);
-
-      // axios'a gidecek burdan gönderilen data (response.data)
-      // passwoord göndermeye gerek yok sanırım
-      await res
-        .header({ Authorization: `Bearer ${token}` })
-        .status(201)
-        .json({
-          userName: userName,
-          token: token,
+        const user = await prisma.User.create({
+          data: {
+            userName,
+            password: hashedPassword,
+          },
+          include: { books: true },
         });
-      // console.log("req headers: ", req.headers);
-      // console.log("req.user :", req.user);
-    } catch (error) {
-      console.log("error from regi", error);
 
-      res.status(400).json(error);
+        const token = generateToken(user.id);
+
+        // axios'a gidecek burdan gönderilen data (response.data)
+        // passwoord göndermeye gerek yok sanırım
+        await res
+          .header({ Authorization: `Bearer ${token}` })
+          .status(201)
+          .json({
+            userName: userName,
+            token: token,
+          });
+        // console.log("req headers: ", req.headers);
+        // console.log("req.user :", req.user);
+      } catch (error) {
+        console.log("error from regi", error);
+
+        res.status(400).json(error);
+      }
     }
   }
 };
@@ -89,7 +89,7 @@ exports.loginUser = async (req, res) => {
         console.log("id", user.id);
         const token = generateToken(user.id);
         console.log("controller token", token);
-        console.log("this", bcrypt.compare(password, user.password));
+        // console.log("this", bcrypt.compare(password, user.password));
         return res
           .header({ Authorization: `Bearer ${token}` })
           .json({ userName: user.userName, token: token });
