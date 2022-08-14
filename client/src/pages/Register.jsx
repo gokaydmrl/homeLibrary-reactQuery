@@ -1,16 +1,10 @@
 import { useState } from "react";
-import RegisterInputs from "./RegisterInputs";
+import RegisterInputs from "../components/RegisterInputs";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+
 import { GiBookshelf } from "react-icons/gi";
-import { useEffect } from "react";
-import Login from "./Login";
-import LoginInputs from "./LoginInputs";
-import { Link } from "react-router-dom";
-import { AiFillGithub } from "react-icons/ai";
+
 import Footer from "./Footer";
 
 const Register = () => {

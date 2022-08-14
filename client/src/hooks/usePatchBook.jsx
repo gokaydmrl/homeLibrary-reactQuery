@@ -1,6 +1,6 @@
 import { useMutation, QueryClient } from "@tanstack/react-query";
 import { queryClient } from "../App";
-import patchBookAction from "./patchBookAction";
+import patchBookAction from "../api/patchBookAction";
 
 const usePatchBook = () => {
   return useMutation(patchBookAction, {

@@ -1,6 +1,6 @@
 import { useMutation, QueryClient } from "@tanstack/react-query";
 import { queryClient } from "../App";
-import deleteBookAction from "./deleteBookAction";
+import deleteBookAction from "../api/deleteBookAction";
 
 const useDeleteBook = () => {
   return useMutation(deleteBookAction, {

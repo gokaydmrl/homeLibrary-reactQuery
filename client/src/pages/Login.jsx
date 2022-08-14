@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import LoginInputs from "./LoginInputs";
+import LoginInputs from "../components/LoginInputs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
